@@ -1,0 +1,54 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #E7F2E6; /* Warna latar belakang */
+    text-align: center;
+}
+
+.calendar-container {
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #FFFFFF; /* Warna latar belakang kalender */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 300px; /* Lebar kalender */
+}
+
+.header {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.month-year {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.table {
+    display: table;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.header-row {
+    display: table-row;
+    background-color: #F0F0F0; /* Warna latar belakang header */
+}
+
+.header-col {
+    display: table-cell;
+    padding: 10px;
+    font-weight: bold;
+    border: 1px solid #000; /* Garis batas untuk kolom */
+}
+
+.day {
+    display: table-cell;
+    padding: 10px;
+    border: 1px solid #000; /* Garis batas untuk hari */
+}
+
+.weekend {
+    background-color: #FFE6E6; /* Warna latar belakang untuk akhir pekan */
+}
