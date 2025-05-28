@@ -1,0 +1,96 @@
+/* Background */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    background-color:  #ffffff;
+    background-image: url('image/LogIn.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+    margin: 0;
+    min-height: 100vh;
+    min-width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-container {
+  background-color: #9ABD97;
+  padding: 30px;
+  border-radius: 10px;
+  width: 520px;
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.form-group1 {
+  margin-bottom: 15px;
+
+}
+
+.form-group2 {
+  margin-bottom: 15px;
+  margin-right: 50px;
+  
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 14px;
+
+}
+
+input[type="text"],
+input[type="email"],
+textarea {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+textarea {
+  resize: vertical;
+  height: 100px;
+}
+
+.form-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.form-row .form-group {
+  flex: 1;
+}
+
+button {
+  width: 103%;
+  padding: 10px;
+  background-color: #4f7942;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  margin-top: 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #6eaa5c;
+}

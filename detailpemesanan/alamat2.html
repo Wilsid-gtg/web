@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Alamat</title>
+  <link rel="stylesheet" href="alamat2.css">
+</head>
+<body>
+
+<div class="card">
+  <div class="form-container">
+    <form onsubmit="simpanKeLocalStorage(event)">
+      <div class="form-row">
+        <div class="form-group1">
+          <label for="first-name">First name</label>
+          <input type="text" id="first-name" name="first-name" placeholder="Nama depan">
+        </div>
+        <div class="form-group2">
+          <label for="last-name">Last name</label>
+          <input type="text" id="last-name" name="last-name" placeholder="Nama belakang">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email address / No. HP</label>
+        <input type="email" id="email" name="email" placeholder="Masukkan email atau No. HP">
+      </div>
+
+      <br>
+      <div class="form-group">
+        <label for="alamat">Alamat lengkap</label>
+        <textarea id="alamat" name="alamat" placeholder="Tulis alamat lengkapmu!"></textarea>
+      </div>
+
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+</div>
+
+<script>
+  function simpanKeLocalStorage(event) {
+    event.preventDefault(); // Cegah reload form
+
+    const firstName = document.getElementById('first-name').value.trim();
+    const lastName = document.getElementById('last-name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const alamat = document.getElementById('alamat').value.trim();
+
+    const data = {
+      namaLengkap: firstName + " " + lastName,
+      email: email,
+      alamat: alamat
+    };
+
+    // Simpan data ke localStorage
+    localStorage.setItem("dataUser", JSON.stringify(data));
+
+    // Pindah ke halaman detail pemesanan
+    window.location.href = "detailpemesanan.html";
+  }
+
+  window.onload = function() {
+    const dataUser = JSON.parse(localStorage.getItem("dataUser"));
+    if (dataUser) {
+      const namaArray = dataUser.namaLengkap.split(" ");
+      document.getElementById("first-name").value = namaArray[0] || "";
+      document.getElementById("last-name").value = namaArray.slice(1).join(" ") || "";
+      document.getElementById("email").value = dataUser.email || "";
+      document.getElementById("alamat").value = dataUser.alamat || "";
+    }
+  }
+</script>
+
+</body>
+</html>
