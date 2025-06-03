@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail Pemesanan</title>
+    <script src="https://kit.fontawesome.com/1ab94d0eba.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="detailpemesanan.css">
+    <style>
+        .payment-popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .payment-popup-content {
+            background-color: #2d6b4c;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            width: 400px;
+            max-width: 90%;
+            max-height: 80%;
+            overflow-y: auto;
+            position: relative;
+            animation: popup-slide-in 0.3s ease-out;
+        }
+
+        @keyframes popup-slide-in {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .popup-close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .popup-close-btn:hover {
+            color: #ccc;
+        }
+
+        .payment-popup-title {
+            text-align: center;
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: white;
+        }
+
+        .payment-popup-method {
+            background-color: #d4e9c3;
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .payment-popup-details {
+            background-color: white;
+            border-radius: 5px;
+            padding: 10px;
+        }
+
+        .payment-popup-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .payment-popup-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin: 5px 0;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            color: black;
+        }
+
+   
+
+        .payment-popup-item.selected {
+            background-color: #41454a;
+            color: white;
+            border-color: #030404;
+        }
+
+        .payment-popup-item img {
+            width: 30px;
+            height: 30px;
+            object-fit: contain;
+            margin-right: 10px;
+        }
+
+        .payment-confirm-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #4a814c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: background-color 0.3s;
+        }
+
+        .payment-confirm-btn:hover {
+            background-color: #449c48;
+        }
+        .payment-section {
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+    </style>
+
+</head>
+<body>
+    <main class="container">
+        <div class="card">
+            <div class="imam-info">
+                <img src="image/gufron.png" alt="Ustadz Ghufron" class="imam-img">
+                <div class="imam-details">
+                    <h2>Ustadz Ghufron</h2>
+                    <p class="origin">Asal Jawa</p>
+                    <p class="description">
+                        Ustadz asal jawa yang menjadi tokoh besar dari Indonesia. 
+                        Dengan cara bicara yang mengesankan, beliau akan menuntun kita ke jalan yang benar.
+                    </p>
+                </div>
+            </div>
+            <div class="price-container">
+                <p class="price">Rp. 2.300.000,00</p>
+                <a href="pesan.html" class="change-btn">Change <i class="fas fa-chevron-right"></i></a>
+            </div>
+
+            <div class="section">
+                <h3>Jadwal Pemesanan</h3>
+                <a href="calender2.html" style="text-decoration: none; color: inherit;">
+                    <div class="info-box">
+                        <img src="image/calender.png" class="logo">
+                        <span id="jadwalTanggal">Memuat jadwal...</span>
+                    </div>
+                </a>
+            </div>
+
+            <div class="section">
+                <h3>Alamat dan Data Diri</h3>
+                <a href="alamat2.html" style="text-decoration: none; color: inherit;">
+                    <div class="info-box">
+                        <img src="image/alamat.png" class="logo">
+                        <span id="alamatData">Memuat alamat...</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </a>
+            </div>
+
+            <div class="section">
+                <h3>Rincian Pembayaran</h3>
+                <div class="payment">
+                    <p><strong>Sub Total:</strong> Rp. 2.300.000</p>
+                    <p class="total"><strong>Total Akhir:</strong> Rp. 2.300.000</p>
+                </div>
+            </div>
+
+
+            <div class="payment-section" onclick="openPaymentPopup()">
+                <img src="image/pembayaran.png" class="payment-icon">
+                <span class="payment-text">Metode Pembayaran</span>
+                <span class="bank-info" id="selectedPaymentMethod">Pilih Pembayaran</span>
+            </div>
+
+            <button class="confirm-btn">Konfirmasi Pesanan</button>
+        </div>
+    </main>
+
+    <div class="payment-popup-overlay" id="paymentPopup">
+        <div class="payment-popup-content">
+            <button class="popup-close-btn" onclick="closePaymentPopup()">&times;</button>
+            <h2 class="payment-popup-title">Metode Pembayaran</h2>
+            
+            <div class="payment-popup-method">
+                <div class="payment-popup-details">
+                    <ul class="payment-popup-list">
+                        <li class="payment-popup-item" onclick="selectPaymentMethod(this, 'Transfer Bank - Bank Syariah Indonesia')">
+                            <img src="image/bsi.png" alt="BSI">
+                            Bank Syariah Indonesia
+                        </li>
+                        <li class="payment-popup-item" onclick="selectPaymentMethod(this, 'Cash on Delivery (COD)')">
+                            <img src="image/cahs.png" alt="COD">
+                            Cash on Delivery (COD)
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <button class="payment-confirm-btn" onclick="confirmPaymentMethod()">Konfirmasi Metode Pembayaran</button>
+        </div>
+    </div>
+
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('get_tanggal.php')
+                .then(response => response.text())
+                .then(tanggal => {
+                    document.getElementById('jadwalTanggal').innerText = tanggal;
+                })
+                .catch(error => {
+                    document.getElementById('jadwalTanggal').innerText = 'Error loading schedule';
+                });
+
+            fetch('get_alamat.php')
+                .then(response => response.text())
+                .then(alamat => {
+                    document.getElementById('alamatData').innerText = alamat;
+                })
+                .catch(error => {
+                    document.getElementById('alamatData').innerText = 'Error loading address';
+                });
+        });
+
+        let selectedPayment = 'pilih metode pembayaran';
+
+ 
+        function openPaymentPopup() {
+            document.getElementById('paymentPopup').style.display = 'flex';
+            document.body.style.overflow = 'hidden'; 
+        }
+
+
+        function closePaymentPopup() {
+            document.getElementById('paymentPopup').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+  
+        function selectPaymentMethod(element, methodName) {
+            const allItems = document.querySelectorAll('.payment-popup-item');
+            allItems.forEach(item => item.classList.remove('selected'));
+            element.classList.add('selected');
+            selectedPayment = methodName;
+        }
+
+        function confirmPaymentMethod() {
+            document.getElementById('selectedPaymentMethod').textContent = selectedPayment;
+            closePaymentPopup(); 
+        }
+
+
+        document.getElementById('paymentPopup').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closePaymentPopup();
+            }
+        });
+    </script>
+</body>
+</html>
